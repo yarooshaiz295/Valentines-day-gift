@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image" href="icon.png">
+  <link rel="preload" as="image" href="icon.png">
+  <meta property="og:image" content="icon.png">
+<meta property="og:title" content="My Website">
+<meta property="og:description" content="This is my awesome site.">
+<link rel="shortcut icon" href="icon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/fontawesome.min.css" integrity="sha512-M5Kq4YVQrjg5c2wsZSn27Dkfm/2ALfxmun0vUE3mPiJyK53hQBHYCVAtvMYEC7ZXmYLg8DVG4tF8gD27WmDbsg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <title>GIFT FOR YOU JANA G 💝</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body >
+<!-- Loader -->
+<div id="loader">
+    <div id="loading-text" >LOADING...</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"><h1 class="name"><b>YAROOSHAIZ</b></h1></div>
+    </div>
+</div>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+
+
+  <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="content">
+</div>
+  <div class="container">
+    <!-- <h1>WILL YOU BE MY VALENTINS? </h1> -->
+     <div class="typing" id="typing"></div>
+    <div class="buttons">
+      <!-- <button class="yes-button" onclick="handleYesClick()">Yes</button> -->
+       <!-- From Uiverse.io by njesenberger --> 
+<button type="button" class="yes-button" onclick="handleYesClick()">
+  <div class="button-top">YES</div>
+  <div class="button-bottom"></div>
+  <div class="button-base"></div>
+</button>
+      <!-- <button class="no-button" onclick="handleNoClick()">No</button> -->
+       <button type="no-button" class="no-button" onclick="handleNoClick()">
+  <div class="no-button-top">NO</div>
+  <div class="no-button-bottom"></div>
+  <div class="no-button-base"></div>
+</button>
+    </div>
+    <div class="gif_container">
+      <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
+    </div>
+  </div>
+
+  
+  
+  
+  <script>
+
+      // Texts to type
+    const texts = ["WILL YOU BE MY VALENTINE ?"];
+    let count = 0;       // Which text
+    let index = 0;       // Character index
+    let currentText = '';
+    let isDeleting = false;
+    const speed = 100;   // Typing speed in ms
+    const pause = 1500;  // Pause before deleting
+
+    function typeEffect() {
+        currentText = texts[count];
+        
+        if (isDeleting) {
+            document.getElementById('typing').textContent = currentText.substring(0, index--);
+        } else {
+            document.getElementById('typing').textContent = currentText.substring(0, index++);
+        }
+
+        if (!isDeleting && index === currentText.length) {
+            // Pause before deleting
+            setTimeout(() => isDeleting = true, pause);
+        } else if (isDeleting && index === 0) {
+            isDeleting = false;
+            count = (count + 1) % texts.length; // Loop through texts
+        }
+
+        setTimeout(typeEffect, isDeleting ? speed / 2 : speed);
+    }
+
+    // Start typing effect
+    typeEffect();
+
+     const cursor = document.getElementById("cursor");
+    const symbols = ["❤️", "💖", "✨", "💗", "💞", "🥰"];
+
+    document.addEventListener("mousemove", (e) => {
+        // Move custom cursor
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        // Create particle
+        const particle = document.createElement("span");
+        particle.className = "particle";
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = e.clientX + "px";
+        particle.style.top = e.clientY + "px";
+        particle.style.fontSize = Math.random() * 60 + 40 + "px";
+        particle.style.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+
+        document.body.appendChild(particle);
+
+        // Remove after animation
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    });
+const loadingText = document.getElementById("loading-text");
+    const progressFill = document.getElementById("progress-fill");
+    const loader = document.getElementById("loader");
+
+    // Small 1KB image for speed test
+    const testFile = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/16px-React-icon.svg.png";
+    const fileSizeInBytes = 3072; // ~3KB
+
+    function measureSpeed(callback) {
+        const startTime = new Date().getTime();
+        fetch(testFile + "?cacheBust=" + Math.random())
+            .then(res => res.blob())
+            .then(() => {
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // seconds
+                const bitsLoaded = fileSizeInBytes * 8;
+                const speedMbps = (bitsLoaded / duration / (1024 * 1024)).toFixed(2);
+                callback(speedMbps);
+            })
+            .catch(() => callback(5)); // fallback if error
+    }
+
+    function startLoader(speed) {
+        loadingText.textContent = `Speed: ${speed} Mbps`;
+
+        // Faster speed = shorter load time
+        let loadTime = Math.max(1, 5 - speed / 2); // seconds
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 100 / (loadTime * 10);
+            if (progress > 100) progress = 100;
+            progressFill.style.width = progress + "%";
+            loadingText.textContent = `Loading ${Math.floor(progress)}%`;
+
+            if (progress === 100) {
+                clearInterval(interval);
+                loader.classList.add("hidden");
+            }
+        }, 100);
+    }
+
+    // Run speed test then start loader
+    measureSpeed(startLoader);
+
+const messages = [
+    "Are you sure?",
+    "Really sure??🤨",
+    "Are you positive?🧐",
+    "Jana g please...🤗",
+    "Just think about it!☹️",
+    "If you say no, I will be really sad...😮",
+    "I will be very sad...🥺",
+    "I will be very very very sad...😭",
+    "Ok fine, I will stop asking...🙂",
+    "Just kidding, say yes please!💝"
+];
+
+let messageIndex = 0;
+
+function handleNoClick() {
+  const noButton = document.querySelector('.no-button');
+  const yesButton = document.querySelector('.yes-button');
+  noButton.textContent = messages[messageIndex];
+  messageIndex = (messageIndex + 1) % messages.length;
+  const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+  yesButton.style.fontSize = `${currentSize * 1.5}px`;
+}
+
+function handleYesClick() {
+  window.location.href = "yes_page.html";
+}
+
+onload = () => {
+  document.body.classList.remove("container");
+};
+
+const wrapper = document.querySelector(".wrapper");
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+openBtn.addEventListener("click", () => {
+  wrapper.classList.add("open");
+  openBtn.style.display = "none";
+  closeBtn.style.display = "inline-block";
+});
+
+closeBtn.addEventListener("click", () => {
+  wrapper.classList.remove("open");
+  closeBtn.style.display = "none";
+  openBtn.style.display = "inline-block";
+});
+
+  </script>
+</body>
+
+</html>
