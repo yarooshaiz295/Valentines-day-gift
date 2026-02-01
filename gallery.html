@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Photo Gallery - MY VALENTINES</title>
+    <style>
+        .gallery-section {
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #ffe6f0 0%, #ffccee 100%);
+            min-height: 100vh;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            text-align: center;
+            color: #ff0066;
+            font-size: clamp(24px, 6vw, 42px);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-subtitle {
+            text-align: center;
+            color: #cc0066;
+            font-size: clamp(14px, 3vw, 18px);
+            margin-bottom: 40px;
+        }
+
+        /* Main Slider Container */
+        .slider-wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Main Image Display */
+        .main-image-container {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: clamp(10px, 3vw, 20px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            max-height: 500px;
+            background: linear-gradient(135deg, #ff99cc, #ff6699);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(30px, 8vw, 60px);
+            color: white;
+            margin-bottom: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-counter {
+            color: #ff0066;
+            font-weight: bold;
+            font-size: clamp(14px, 4vw, 18px);
+        }
+
+        .image-title {
+            color: #cc0066;
+            font-size: clamp(16px, 5vw, 20px);
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .image-description {
+            color: #666;
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        /* Side Slider */
+        .side-slider {
+            width: 120px;
+            max-height: 500px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ff99cc, #ff6699);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(16px, 5vw, 24px);
+            color: white;
+            position: relative;
+            flex-shrink: 0;
+            flex-shrink: 0;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 0, 102, 0.4);
+        }
+
+        .slider-item.active {
+            border-color: #ff0066;
+            box-shadow: 0 4px 12px rgba(255, 0, 102, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Scrollbar Styling */
+        .side-slider::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .side-slider::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .side-slider::-webkit-scrollbar-thumb {
+            background: #ff0066;
+            border-radius: 10px;
+        }
+
+        .side-slider::-webkit-scrollbar-thumb:hover {
+            background: #cc0052;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background-color: #ff0066;
+            color: white;
+            border: none;
+            padding: clamp(8px, 2vw, 12px) clamp(15px, 4vw, 25px);
+            margin: clamp(5px, 1vw, 10px);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background-color: #cc0052;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #ff0066;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: clamp(14px, 3vw, 16px);
+            padding: 10px 20px;
+            border: 2px solid #ff0066;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #ff0066;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-image {
+                max-height: 400px;
+            }
+
+            .main-image-container {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-title {
+                font-size: 28px;
+            }
+
+            .slider-wrapper {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .side-slider {
+                width: 100%;
+                max-height: 150px;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+
+            .slider-item {
+                width: 90px;
+                height: 90px;
+                font-size: 18px;
+            }
+
+            .main-image {
+                max-height: 350px;
+            }
+
+            .main-image-container {
+                padding: 15px;
+                max-width: 100%;
+
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-section {
+                padding: 20px 10px;
+            }
+
+            .gallery-title {
+                font-size: 22px;
+                margin-bottom: 8px;
+            }
+
+            .gallery-subtitle {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .side-slider {
+                gap: 8px;
+                padding: 8px;
+            }
+
+            .slider-item {
+                width: 80px;
+                height: 80px;
+                border: 2px solid transparent;
+                font-size: 16px;
+            }
+
+            .main-image {
+                /* height: auto; */
+                /* width: auto; */
+                aspect-ratio: 6/9;
+                max-height: 250px;
+                margin-bottom: 10px;
+            }
+
+            .main-image-container {
+                padding: 10px;
+            }
+
+            .image-counter {
+                font-size: 14px;
+            }
+
+            .image-title {
+                font-size: 16px;
+            }
+
+            .image-description {
+                font-size: 12px;
+            }
+
+            .nav-btn {
+                padding: 10px 15px;
+                margin: 0 5px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .gallery-title {
+                font-size: 18px;
+            }
+
+            .slider-item {
+                width: 70px;
+                height: 70px;
+                font-size: 14px;
+            }
+
+            .nav-btn {
+                padding: 8px 12px;
+                margin: 5px 0;
+                width: 100%;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">💕 MY VALENTINES</div>
+            <ul class="nav-menu">
+                <li><a href="index-home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="countdown.html" class="nav-link">Countdown</a></li>
+                <!-- <li><a href="memories.html" class="nav-link">Memories</a></li> -->
+                <li><a href="playlist.html" class="nav-link">Playlist</a></li>
+                <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link">Message</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <h1 class="gallery-title">💕 Your Photos Gallery 💕</h1>
+            <p class="gallery-subtitle">Here is your images you send for me to create a moument <br>Here every single image remind me every moument about these images😌.</p>
+
+            <!-- Gallery Slider -->
+            <div class="slider-wrapper">
+                <!-- Main Image Display -->
+                <div class="main-image-container">
+                    <div class="main-image" id="mainImage">
+                        📸
+                    </div>
+                    <div class="image-counter" id="imageCounter">Image 1 of 20</div>
+                    <div class="image-title" id="imageTitle"></div>
+                    <div class="image-description" id="imageDescription">Click on thumbnails to view</div>
+                </div>
+
+                <!-- Side Slider -->
+                <div class="side-slider" id="sideSlider"></div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" onclick="previousImage()">← Previous</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextImage()">Next →</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="index-home.html" class="back-link">← Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Made with love 💕 for someone special | Valentine's Day 2026-14-February</p>
+    </footer>
+
+    <script>
+        // Gallery Images Array (20 images)
+        const images = [
+            { id: 1, src: 'images/1.jpeg' },
+            { id: 2, src: 'images/2.jpeg'},
+            { id: 3, src: 'images/3.jpeg'},
+            { id: 4, src: 'images/img4.jpeg'},
+            { id: 5, src: 'images/img5.jpeg'},
+            { id: 6, src: 'images/img6.jpeg'},
+            { id: 7, src: 'images/img7.jpeg'},
+            { id: 8, src: 'images/img8.jpeg'},
+            { id: 9, src: 'images/img9.jpeg'},
+            { id: 10, src: 'images/img10.jpeg'},
+            { id: 11, src: 'images/img11.jpeg'},
+            { id: 12, src: 'images/img12.jpeg'},
+            { id: 13, src: 'images/img13.jpeg'},
+            { id: 14, src: 'images/img14.jpeg'},
+            { id: 15, src: 'images/img15.jpeg'},
+            { id: 16, src: 'images/img16.jpeg'},
+            { id: 17, src: 'images/img17.jpeg'},
+            { id: 18, src: 'images/img18.jpeg'},
+            { id: 19, src: 'images/img19.jpeg'},
+            { id: 20, src: 'images/img20.jpeg'}
+        ];
+
+        let currentIndex = 0;
+
+        // Initialize Gallery
+        function initGallery() {
+            renderSideSlider();
+            displayImage(0);
+        }
+
+        // Render Side Slider
+        function renderSideSlider() {
+            const sideSlider = document.getElementById('sideSlider');
+            sideSlider.innerHTML = '';
+
+            images.forEach((image, index) => {
+                const sliderItem = document.createElement('div');
+                sliderItem.className = `slider-item ${index === 0 ? 'active' : ''}`;
+                sliderItem.onclick = () => selectImage(index);
+                sliderItem.title = image.title;
+
+                // Try to load image, fallback to emoji
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.onerror = function() {
+                    this.style.display = 'none';
+                };
+                sliderItem.appendChild(img);
+
+                // Fallback emoji
+                if (!img.src.includes('1.jpeg') && !img.src.includes('2.jpeg') && !img.src.includes('3.jpeg') && !img.src.includes('img4.jpeg') && !img.src.includes('img5.jpeg') && !img.src.includes('img6.jpeg') && !img.src.includes('img7.jpeg') && !img.src.includes('img8.jpeg') && !img.src.includes('img9.jpeg') && !img.src.includes('img10.jpeg') && !img.src.includes('img11.jpeg') && !img.src.includes('img12.jpeg') && !img.src.includes('img13.jpeg') && !img.src.includes('img14.jpeg') && !img.src.includes('img15.jpeg') && !img.src.includes('img16.jpeg') && !img.src.includes('img17.jpeg') && !img.src.includes('img18.jpeg') && !img.src.includes('img19.jpeg') && !img.src.includes('img20.jpeg')) {
+                    sliderItem.textContent = '';
+                }
+
+                sideSlider.appendChild(sliderItem);
+            });
+        }
+
+        // Display Image
+        function displayImage(index) {
+            const image = images[index];
+            const mainImage = document.getElementById('mainImage');
+
+            // Try to load the actual image
+            const img = new Image();
+            img.onload = function() {
+                mainImage.innerHTML = `<img src="${image.src}" alt="${image.title}">`;
+            };
+            img.onerror = function() {
+                mainImage.innerHTML = '📸';
+            };
+            img.src = image.src;
+
+            document.getElementById('imageCounter').textContent = `Image ${index + 1} of ${images.length}`;
+            document.getElementById('imageTitle').textContent = image.title;
+            document.getElementById('imageDescription').textContent = image.description;
+
+            // Update active state in slider
+            document.querySelectorAll('.slider-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+
+            // Scroll active item into view
+            const activeItem = document.querySelectorAll('.slider-item')[index];
+            if (activeItem) {
+                activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === images.length - 1;
+
+            currentIndex = index;
+        }
+
+        // Select Image from Slider
+        function selectImage(index) {
+            displayImage(index);
+        }
+
+        // Previous Image
+        function previousImage() {
+            if (currentIndex > 0) {
+                displayImage(currentIndex - 1);
+            }
+        }
+
+        // Next Image
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                displayImage(currentIndex + 1);
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') previousImage();
+            if (event.key === 'ArrowRight') nextImage();
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', initGallery);
+    </script>
+</body>
+</html>

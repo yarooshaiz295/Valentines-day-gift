@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Send Message - MY VALENTINES</title>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">💕 MY VALENTINES</div>
+            <ul class="nav-menu">
+                <li><a href="index-home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">Our Story</a></li>
+                <li><a href="countdown.html" class="nav-link">Countdown</a></li>
+                <!-- <li><a href="memories.html" class="nav-link">Memories</a></li> -->
+                <li><a href="playlist.html" class="nav-link">Playlist</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="contact.html" class="nav-link active">Message</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <h1>Send Me a Message 💌</h1>
+            <p class="contact-subtitle">Share your thoughts and feelings</p>
+
+            <form class="contact-form" id="contactForm" action="https://formsubmit.co/yarooshaiz295@gmail.com" method="POST">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your email address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" placeholder="What's on your mind?" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="emotion">How are you feeling?</label>
+                    <select id="emotion" name="emotion">
+                        <option value="">Choose an emotion...</option>
+                        <option value="happy">😊 Happy</option>
+                        <option value="loved">❤️ Loved</option>
+                        <option value="grateful">🙏 Grateful</option>
+                        <option value="excited">🤩 Excited</option>
+                        <option value="romantic">💕 Romantic</option>
+                        <option value="peaceful">😌 Peaceful</option>
+                        <option value="passionate">🔥 Passionate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" placeholder="Write what's in your heart..." rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">💌 Send Message</button>
+            </form>
+
+            <div id="successMessage" class="success-message" style="display:none;">
+                <h2>Message Sent! 💕</h2>
+                <p>Thank you for your sweet message. It means the world to me! 💖</p>
+            </div>
+
+            <div class="contact-info">
+                <h2>Other Ways to Reach Me 💕</h2>
+                <div class="info-items">
+                    <div class="info-item">
+                        <span class="info-icon">💬</span>
+                        <p>Text me your thoughts anytime</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">☎️</span>
+                        <p>Call to hear my voice</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <p>Reach out on social media</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <p>Email me anytime, any reason</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-footer">
+                <a href="index-home.html" class="btn-back">← Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>Made with love 💕 for someone special | Valentine's Day 2026-14-February</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image" href="icon.png">
+  <title>HAPPY VALENTINE'S DAY JANA G 💞💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- <style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f9e3e3;
+  font-family: 'Arial', sans-serif;
+}
+
+.container {
+  text-align: center;
+}
+
+.header_text {
+  font-size: 3em;
+  color: #d32f2f;
+}
+
+.gif_container img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+  </style> -->
+  <link rel="stylesheet" href="styles.css">
+
+<body>
+
+<!-- Loader -->
+<div id="loader">
+    <div id="loading-text">LOADING...</div>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"><h1 class="name"><b>YAROOSHAIZ</b></h1></div>
+    </div>
+</div>
+  <!-- Custom cursor -->
+<div id="cursor"></div>
+
+  
+  <div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<div class="content">
+</div>
+
+  <div class="container">
+    <h1 class="header_text">I Knew you would say yes!</h1>
+   
+    <div class="gif_container">
+      <img src="https://gifsec.com/wp-content/uploads/2022/09/happy-valentine-gif-36.gif">
+       <!-- <div class="card" id="card">
+    <div class="card-content">
+        <h2>💕 I Love You So Much 💕</h2>
+        <p><B>Mari Piyari Wife G 🥰💓🥰</B>
+You are my everything, my sunshine, and the love of my life!
+
+Every moment with you is a blessing. Thank you for being the most amazing wife in the world! 💖✨</p>
+    </div>
+</div> -->
+
+  
+       
+
+       <h1 class="header_text">I LOVE YOU SO MUCH <br>MARI PIYARI WIFE G <br>💝💞💖💞💖💖💝</h1>
+    </div>
+  </div>
+
+  <!-- <button class="btn-forword">
+<a href="index-home.html" class="btn">Click Here 💝💞 →</a>
+ </button> -->
+
+ <a href="index-home.html" class="card-link">Click Here → 💝💞 </a>
+
+ 
+
+  <script>
+
+function goForword() {
+    window.location.href = 'index-home.html';
+}
+   
+
+   
+
+     const cursor = document.getElementById("cursor");
+    const symbols = ["🥰", "💖", "✨", "💗", "💞", "💓"];
+
+    document.addEventListener("mousemove", (e) => {
+        // Move custom cursor
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        // Create particle
+        const particle = document.createElement("span");
+        particle.className = "particle";
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = e.clientX + "px";
+        particle.style.top = e.clientY + "px";
+        particle.style.fontSize = Math.random() * 60 + 40 + "px";
+        particle.style.color = `hsl(${Math.random() * 360}, 80%, 60%)`;
+
+        document.body.appendChild(particle);
+
+        // Remove after animation
+        setTimeout(() => {
+            particle.remove();
+        }, 1000);
+    });
+
+     const loadingText = document.getElementById("loading-text");
+    const progressFill = document.getElementById("progress-fill");
+    const loader = document.getElementById("loader");
+
+    // Small 1KB image for speed test
+    const testFile = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/16px-React-icon.svg.png";
+    const fileSizeInBytes = 1024; // ~1KB
+
+    function measureSpeed(callback) {
+        const startTime = new Date().getTime();
+        fetch(testFile + "?cacheBust=" + Math.random())
+            .then(res => res.blob())
+            .then(() => {
+                const endTime = new Date().getTime();
+                const duration = (endTime - startTime) / 1000; // seconds
+                const bitsLoaded = fileSizeInBytes * 8;
+                const speedMbps = (bitsLoaded / duration / (1024 * 1024)).toFixed(2);
+                callback(speedMbps);
+            })
+            .catch(() => callback(5)); // fallback if error
+    }
+
+    function startLoader(speed) {
+        loadingText.textContent = `Speed: ${speed} Mbps`;
+
+        // Faster speed = shorter load time
+        let loadTime = Math.max(1, 5 - speed / 2); // seconds
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 100 / (loadTime * 10);
+            if (progress > 100) progress = 100;
+            progressFill.style.width = progress + "%";
+            loadingText.textContent = `Loading ${Math.floor(progress)}%`;
+
+            if (progress === 100) {
+                clearInterval(interval);
+                loader.classList.add("hidden");
+            }
+        }, 100);
+    }
+
+    // Run speed test then start loader
+    measureSpeed(startLoader);
+  </script>
+</body>
+
+</html>
